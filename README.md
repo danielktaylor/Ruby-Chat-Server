@@ -19,3 +19,5 @@ Creating the database table in Postgres:
       password varchar(100),
       salt varchar(100));
   \q
+
+  CREATE INDEX email_idx ON users (email);
