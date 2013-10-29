@@ -7,6 +7,7 @@ require './util/db'
 
 class ChatServer < Sinatra::Application
   set :bind, '0.0.0.0'
+  set :show_exceptions, true
 
   # temporary message store (switch to iOS notification service)
   #   key: email
@@ -32,6 +33,10 @@ class ChatServer < Sinatra::Application
       end
       return nil
     end
+  end
+
+  not_found do
+    return [404, 'Page not found.']
   end
 
   # Register a new user
