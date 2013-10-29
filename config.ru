@@ -3,4 +3,5 @@ require 'bundler'
 Bundler.require
 
 require './chat_server'
-run ChatServer
+#run ChatServer
+ChatServer.run!

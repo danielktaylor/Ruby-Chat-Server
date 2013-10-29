@@ -6,6 +6,8 @@ require './util/utilities'
 require './util/db'
 
 class ChatServer < Sinatra::Application
+  set :bind, '0.0.0.0'
+
   # temporary message store (switch to iOS notification service)
   #   key: email
   #   value: list of messages [sender, message, timestamp]
