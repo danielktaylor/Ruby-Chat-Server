@@ -27,6 +27,17 @@ class Db
       end
     end
 
+    def get_shared_secret(email)
+      email_safe = @conn.escape_string(email)
+      query = "select shared_secret from users where email='#{email_safe}'"
+      begin
+        result = @conn.exec(query)
+        return result[0]['shared_secret'].to_s
+      rescue
+        return nil
+      end
+    end
+
     def create_user(email, password)
       email_safe = @conn.escape_string(email)
       if user_exists?(email_safe)
@@ -34,13 +45,14 @@ class Db
       end
 
       salt = SecureRandom.hex
+      shared_secret = SecureRandom.hex
       hash = hash_password(password, salt)
 
       begin
-        query = "INSERT INTO users (email, password, salt) 
-          VALUES ('#{email_safe}', '#{hash}', '#{salt}')"
+        query = "INSERT INTO users (email, password, salt, shared_secret) 
+          VALUES ('#{email_safe}', '#{hash}', '#{salt}', '#{shared_secret}')"
         result = @conn.exec(query)
-        return true
+        return shared_secret
       rescue
         return false
       end
@@ -80,6 +92,24 @@ class Db
         return true
       rescue
         return false
+      end
+    end
+
+    def reset_shared_secret(email)
+      email_safe = @conn.escape_string(email) 
+      unless user_exists?(email_safe)
+        return false
+      end
+
+      shared_secret = SecureRandom.hex
+
+      begin
+        query = "UPDATE users SET (shared_secret) = 
+          ('#{shared_secret}') WHERE email='#{email_safe}'"
+        result = @conn.exec(query)
+        return shared_secret
+      rescue
+        return nil
       end
     end
 

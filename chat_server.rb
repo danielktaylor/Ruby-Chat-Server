@@ -56,8 +56,8 @@ class ChatServer < Sinatra::Application
       return [400, 'already registered']
     end
 
-    if Db.create_user(email, password)
-      return [200, 'ok']
+    if shared_secret = Db.create_user(email, password)
+      return [200, shared_secret]
     else
       return [500, 'internal error']
     end
@@ -118,6 +118,18 @@ class ChatServer < Sinatra::Application
 
     Db.change_password(email, new_password)
     return [200, 'ok']
+  end
+
+  # Reset the shared secret
+  post '/reset_shared_secret' do
+    email = protected!
+
+    if !Db.user_exists?(email)
+      return [400, 'bad email address']
+    end
+
+    shared_secret = Db.reset_shared_secret(email)
+    return [200, shared_secret]
   end
 
   # Send a message
