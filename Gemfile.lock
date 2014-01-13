@@ -2,12 +2,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     columnize (0.3.6)
-    debugger (1.6.1)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.3)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     json (1.8.0)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -33,7 +27,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debugger
   json
   mail
   pg

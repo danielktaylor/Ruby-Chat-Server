@@ -9,9 +9,10 @@ class ChatServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :show_exceptions, true
 
-  # temporary message store (switch to iOS notification service)
+  # message store
   #   key: email
   #   value: list of messages [sender, message, timestamp]
+  # you could switch this to a service such as Apple Push Notifications
   $messages = {}
 
   helpers do

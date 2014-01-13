@@ -1,6 +1,10 @@
-# Production Server
+# Simple Ruby Chat Server
 
-This is the production server.
+This is a very simple chat server that I created while prototyping an iOS chat application. It uses polling to get new messages, and all API calls are done over HTTP.
+
+The backend of this system is a Postgres database.
+
+# Postgres Database Setup
 
 Creating a Postgres user:
   sudo -i
@@ -12,7 +16,7 @@ Creating a Postgres user:
   GRANT ALL PRIVILEGES ON DATABASE chat to chat;
   \q
 
-Creating the database table in Postgres:
+Creating the database table:
   psql -h 127.0.0.1 -d chat -U chat -W
   CREATE TABLE users (
       email varchar(256),

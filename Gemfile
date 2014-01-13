@@ -6,4 +6,3 @@ gem 'sinatra'
 gem 'pg'
 gem 'mail'
 gem 'json'
-gem 'debugger' #TODO remove
